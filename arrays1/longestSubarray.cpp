@@ -15,14 +15,19 @@ int longestSubarrayWithSumK(vector<int>& arr, int k) {
     int maxLen = 0;
 
     // Check all subarrays using prefix sums
-    for (int i = 0; i < n; i++) {
-        for (int j = i; j < n; j++) {
-            int sum = (i == 0) ? prefixSum[j] : (prefixSum[j] - prefixSum[i - 1]);
-            if (sum == k) {
-                maxLen = max(maxLen, j - i + 1);
-            }
+    // Loop through all possible subarrays
+for (int start = 0; start < n; start++) {
+    for (int end = start; end < n; end++) {
+        // Calculate the sum of subarray from 'start' to 'end'
+        int currentSum = (start == 0) ? prefixSum[end] : (prefixSum[end] - prefixSum[start - 1]);
+
+        // If the sum equals k, update maxLen
+        if (currentSum == k) {
+            int length = end - start + 1;
+            maxLen = max(maxLen, length);
         }
     }
+}
 
     return maxLen;
 }
