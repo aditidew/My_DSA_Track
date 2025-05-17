@@ -1,42 +1,50 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
-
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
-pair<int, int> twosum(vector<int> &arr, int sum){
-    int n= arr.size();
-int left = 0;
-int right = n-1;
-while(left<right){
-    int currsum= arr[left] + arr[right] ;
-    if(currsum == sum){
-        return {left, right};
-    }
-     else if(sum> currsum){
-left++;
-     }
-     else {
+
+vector<vector<int>> twosumAllPairs(vector<int> &arr, int target) {
+    vector<vector<int>> result;
+    sort(arr.begin(), arr.end());
+
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+
+        if (sum < target) {
+            left++;
+        } else if (sum > target) {
             right--;
+        } else {
+            result.push_back({arr[left], arr[right]});
+            left++;
+            right--;
+
+            // Skip duplicates
+            while (left < right && arr[left] == arr[left - 1]) left++;
+            while (left < right && arr[right] == arr[right + 1]) right--;
         }
-       
-     }
-     return {-1, -1};
+    }
+
+    return result;
 }
 
+int main() {
+    vector<int> arr = {6, 3, 2, 6, 3, 9, -1, 4, -1};
+    int target = 5;
 
+    vector<vector<int>> pairs = twosumAllPairs(arr, target);
 
-
-
-int main(){
-    vector<int> arr= {0,1,2,6,3,9};
-    int n=7;
-    int sum= 5;
-    pair<int, int> result = twosum(arr, sum);
-
-    if (result.first != -1)
-        cout << "Pair found at index: " << result.first << " and " << result.second << endl;
-    else
-        cout << "No pair found." << endl;
+    if (!pairs.empty()) {
+        for (auto &pair : pairs) {
+            cout << "[" << pair[0] << ", " << pair[1] << "] ";
+        }
+        cout << endl;
+    } else {
+        cout << "No pairs found." << endl;
+    }
 
     return 0;
 }

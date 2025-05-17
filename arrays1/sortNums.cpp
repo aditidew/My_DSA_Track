@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+//DUTCH NATIONAL FLAG
 // Function to sort an array of 0s, 1s and 2s
 void sort012(vector<int> &arr) {
     int n = arr.size();
