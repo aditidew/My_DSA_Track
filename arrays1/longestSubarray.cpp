@@ -35,7 +35,7 @@ for (int start = 0; start < n; start++) {
 int main() {
     vector<int> arr = {2, 3, 5, 1, 9};
     int k = 10;
-    cout << "Length of longest subarray with sum " << k << " is: "
+    cout << "Length of longest subarray with sum  " << k << " includes elements: "
          << longestSubarrayWithSumK(arr, k) << endl;
     return 0;
 }
