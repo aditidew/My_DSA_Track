@@ -1,42 +1,37 @@
-//kadane algo where Given an integer array arr, find the contiguous subarray (containing at least one number) which
- //has the largest sum and returns its sum and prints the subarray.
-
- 
 #include <bits/stdc++.h>
 using namespace std;
 
-long long maxSubarraySum(int arr[], int n) {
-    long long maxi = LONG_MIN; // maximum sum
-    long long sum = 0;
+void maxSubarraySumWithPrint(int arr[], int n) {
+    long long maxSum = arr[0], currentSum = arr[0];
+    int start = 0, end = 0, s = 0;
 
-    for (int i = 0; i < n; i++) {
-
-        sum += arr[i];
-
-        if (sum > maxi) {
-            maxi = sum;
+    for (int i = 1; i < n; i++) {
+        if (arr[i] > currentSum + arr[i]) {
+            currentSum = arr[i];
+            s = i;  // potential start of new subarray
+        } else {
+            currentSum += arr[i];
         }
 
-        // If sum < 0: discard the sum calculated
-        if (sum < 0) {
-            sum = 0;
+        if (currentSum > maxSum) {
+            maxSum = currentSum;
+            start = s;
+            end = i;
         }
     }
 
-    // To consider the sum of the empty subarray
-    // uncomment the following check:
-
-    //if (maxi < 0) maxi = 0;
-
-    return maxi;
+    // Output
+    cout << "The maximum subarray sum is: " << maxSum << endl;
+    cout << "The subarray is: ";
+    for (int i = start; i <= end; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
 
-int main()
-{
-    int arr[] = { -2, 1, -3, 4, -1, 2, 1, -5, 4};
+int main() {
+    int arr[] = {1, 2, -1, 2, 2}; // Change this for different test cases
     int n = sizeof(arr) / sizeof(arr[0]);
-    long long maxSum = maxSubarraySum(arr, n);
-    cout << "The maximum subarray sum is: " << maxSum << endl;
+    maxSubarraySumWithPrint(arr, n);
     return 0;
 }
-
