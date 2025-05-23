@@ -1,12 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node{ 
+struct Node {
     int data;
     Node *next;
-
 };
 
+// Function to create a new node
 Node* createNode(int value) {
     Node* newnode = new Node;
     newnode->data = value;
@@ -14,43 +14,36 @@ Node* createNode(int value) {
     return newnode;
 }
 
-void append(Node*& head, int value){
+// Append using both head and tail references
+void append(Node*& head, Node*& tail, int value) {
     Node* newnode = createNode(value);
-    if(head == nullptr){
-        head = newnode;
-        return;
+    if (head== nullptr) {
+        head = tail = newnode;
+    } else {
+        tail->next = newnode;
+        tail = newnode;
     }
-
-    Node *temp = head;
-    while(temp->next != nullptr){
-        temp= temp->next;
-
-    }
-    temp->next= newnode;
 }
 
-
-void display(Node* head){
+// Display the list
+void display(Node* head) {
     Node* temp = head;
-    while(temp != nullptr) {
+    while (temp != nullptr) {
         cout << temp->data << " -> ";
         temp = temp->next;
     }
     cout << "NULL" << endl;
 }
 
-
-
 int main() {
-    Node* head = nullptr; // Initialize empty linked list
+    Node* head = nullptr;
+    Node* tail = nullptr;
 
-    append(head, 10);
-    append(head, 20);
-    append(head, 30);
+    append(head, tail, 10);
+    append(head, tail, 20);
+    append(head, tail, 30);
 
     display(head);
-
-    
 
     return 0;
 }
