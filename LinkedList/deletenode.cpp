@@ -63,7 +63,34 @@ void deleteTail(Node*& head, Node*& tail) {
 
 void deleteAtK(Node* head, int k){
     if(head== nullptr) return;
-    if( k==1){
+    // if( k==1){
+    //     Node* temp=head;
+    //     head=head->next;
+    //     free(temp);
+        
+
+
+    // }
+    Node* temp=head;
+    int cnt=0; 
+    Node* prev= nullptr;
+    while(temp!=nullptr){
+        cnt++;
+       
+        if(cnt==k){
+            prev->next= prev->next->next;
+            free(temp);
+            break;
+
+        }
+        prev=temp;
+        temp=temp->next;
+    }
+}
+
+void deleteEL(Node* head, int el){
+    if(head== nullptr) return;
+    if( head->data==el){
         Node* temp=head;
         head=head->next;
         free(temp);
@@ -71,13 +98,10 @@ void deleteAtK(Node* head, int k){
 
 
     }
-     Node* temp=head;
-     int cnt=0; 
+    Node* temp=head;
     Node* prev= nullptr;
     while(temp!=nullptr){
-        cnt++;
-       
-        if(cnt==k){
+        if(temp->data==el){
             prev->next= prev->next->next;
             free(temp);
             break;
@@ -112,7 +136,8 @@ void deleteHead(Node * &head, Node* &tail){
 int main() {
     Node* head = nullptr;
     Node* tail = nullptr;
-    int k=3;
+    int k=2;
+    int el=30;
 
     append(head, tail, 10);
     append(head, tail, 20);
@@ -131,9 +156,14 @@ int main() {
     // cout << "After deleting head ";
     // display(head);
 
-    deleteAtK(head, k);
-    cout << "After deleting at "<< k <<"th position \n" ;
-    display(head);
+    // deleteAtK(head, k);
+    // cout << "After deleting at "<< k <<"th position \n" ;
+    // display(head);
 
+    deleteEL(head, el);
+    cout << "After deleting the element "<< el <<"\n" ;
+    display(head);
     return 0;
 }
+
+
