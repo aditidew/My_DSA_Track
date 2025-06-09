@@ -1,52 +1,37 @@
 #include <iostream>
-#include <algorithm>
-#include <cctype>  // for isalnum and tolower
 #include <string>
+#include <cctype>  // for isalnum, tolower
 using namespace std;
 
-bool isPalindrome(string str) {
-    string temp = str;
-    reverse(temp.begin(), temp.end());
-    if (str == temp) {
-        cout << "it is palindrome" << endl;
-        return true;
-    } else {
-        cout << "not a palindrome" << endl;
-        return false;
-    }
-}
+bool isPalindrome(const string& s) {
+    int left = 0, right = s.length() - 1;
 
-bool alphaNumeric(char ch) {
-    return isalnum(ch);  // correct and cleaner
-}
+    while (left < right) {
+        // Skip non-alphanumeric characters
+        if (!isalnum(s[left])) {
+            left++;
+            continue;
+        }
+        if (!isalnum(s[right])) {
+            right--;
+            continue;
+        }
 
-bool checkPalindrome(string s) {
-    int st = 0, end = s.length() - 1;
-
-    while (st < end) {
-        // skip non-alphanumeric characters
-        while (st < end && !alphaNumeric(s[st])) st++;
-        while (st < end && !alphaNumeric(s[end])) end--;
-
-        if (tolower(s[st]) != tolower(s[end]))
+        // Compare characters (case-insensitive)
+        if (tolower(s[left]) != tolower(s[right])) {
             return false;
+        }
 
-        st++;
-        end--;
+        // Move pointers towards the center
+        left++;
+        right--;
     }
 
     return true;
 }
 
 int main() {
-    string str1 = "aditi";
-    isPalindrome(str1);  // simple reverse check
-
-    string str2 = "A man, a plan, a canal: Panama";
-    if (checkPalindrome(str2))
-        cout << "Valid palindrome (ignoring symbols, case)" << endl;
-    else
-        cout << "Not a valid palindrome" << endl;
-
+    string input = "A man, a plan, a canal: Panama";
+    cout << (isPalindrome(input) ? "Yes, palindrome\n" : "No, not palindrome\n");
     return 0;
 }

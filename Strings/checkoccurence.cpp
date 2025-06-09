@@ -1,18 +1,20 @@
-#include<iostream>
-#include<string>
-#include<cstring>
-#include<algorithm>
+//how many times, a part of the string has occured in the original string. eg. str: abcbbaabcbc, part: abc, string after removing the occurence: bb
+#include <iostream>
+#include <string>
 using namespace std;
 
+int main() {
+    string s = "abcbbaabcbc";
+    string part = "abc";
+    int count = 0;
 
-string removeOccurence(string s, string part){
-    while(s.length()> 0 && s.find(part)< s.length()){
+    // Keep finding and erasing "part" until it's gone
+    while (s.find(part) != string::npos) {
         s.erase(s.find(part), part.length());
+        count++;
     }
 
-    return s;
-}
-
-int main(){
-    cout<< removeOccurence("abcuhabcnhagyaabcbs", "abc");
+    cout << "Final string: " << s << "\n";
+    cout << "Removed " << count << " times\n";
+    return 0;
 }
